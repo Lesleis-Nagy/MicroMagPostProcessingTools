@@ -1,0 +1,37 @@
+macro (new_test_exe name source)
+    add_executable(${name} ${source})
+    if (BLAS_FOUND)
+        target_include_directories(${name} PUBLIC ${H2LIB_INCLUDE_DIR})
+        target_compile_definitions(${name} PUBLIC USE_BLAS=1)
+        target_link_libraries(${name} BLAS::BLAS h2lib)
+    else ()
+        target_include_directories(${name} PUBLIC ${H2LIB_INCLUDE_DIR})
+        target_link_libraries(${name} h2lib)
+    endif()
+    add_test(NAME ${name} COMMAND ${name})
+endmacro()
+
+new_test_exe(test_amatrix test_amatrix.c)
+
+
+new_test_exe(test_eigen test_eigen.c)
+new_test_exe(test_ddcluster test_ddcluster.c)
+new_test_exe(test_h2compression test_h2compression.c)
+new_test_exe(test_h2matrix test_h2matrix.c)
+new_test_exe(test_helmholtzbem3d test_helmholtzbem3d.c)
+new_test_exe(test_helmholtzbem3d_ocl test_helmholtzbem3d_ocl.c)
+new_test_exe(test_hmatrix test_hmatrix.c)
+new_test_exe(test_krylov test_krylov.c)
+new_test_exe(test_krylovsolvers test_krylovsolvers.c)
+new_test_exe(test_laplacebem2d test_laplacebem2d.c)
+new_test_exe(test_laplacebem3d test_laplacebem3d.c)
+new_test_exe(test_laplacebem3d_ocl test_laplacebem3d_ocl.c)
+new_test_exe(test_tet3d test_tet3d.c)
+new_test_exe(test_tet3dp1 test_tet3dp1.c)
+new_test_exe(test_tet3drt0 test_tet3drt0.c)
+new_test_exe(test_tri2d test_tri2d.c)
+new_test_exe(test_tri2dp1 test_tri2dp1.c)
+new_test_exe(test_tri2drt0 test_tri2drt0.c)
+
+# NOTE:
+# test_kernelmatrix.c is not included in tests.
